@@ -1,0 +1,238 @@
+[
+ {
+  "w": 10,
+  "h": 10,
+  "seed": 1,
+  "lacos": 0.0,
+  "lama": 0.0,
+  "cells": "2aaaaeaaec6c6ac3c69553943c13c5546f856a955393e93ac17c6c56ac3c55153943c553c3ac56953c56c553c52939393ab9",
+  "cost": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "results": {
+   "bfs": {
+    "key": "bfs",
+    "found": true,
+    "cost": 24,
+    "path_len": 25,
+    "expanded": 33,
+    "max_frontier": 3
+   },
+   "dfs": {
+    "key": "dfs",
+    "found": true,
+    "cost": 24,
+    "path_len": 25,
+    "expanded": 30,
+    "max_frontier": 3
+   },
+   "ucs": {
+    "key": "ucs",
+    "found": true,
+    "cost": 24,
+    "path_len": 25,
+    "expanded": 33,
+    "max_frontier": 3
+   },
+   "greedy": {
+    "key": "greedy",
+    "found": true,
+    "cost": 24,
+    "path_len": 25,
+    "expanded": 30,
+    "max_frontier": 3
+   },
+   "astar": {
+    "key": "astar",
+    "found": true,
+    "cost": 24,
+    "path_len": 25,
+    "expanded": 33,
+    "max_frontier": 3
+   },
+   "wall": {
+    "key": "wall",
+    "found": true,
+    "cost": 30,
+    "path_len": 31,
+    "expanded": 31,
+    "max_frontier": 1
+   }
+  }
+ },
+ {
+  "w": 24,
+  "h": 16,
+  "seed": 42,
+  "lacos": 0.3,
+  "lama": 0.0,
+  "cells": "6ae86aeaac2aaeeaaa86eaac3c3c543c696ac53aaaa95685454397853c545546aeaa97a97bbaa9696953d393c16ac3ac56aaaa9692bc3c6e96943ac553c6c6c56ac3c395696d469554393953babc7c293a9553c5556aac3c6ac553aaaac556953d52afc53c553eaaac7b93c16d56c3b96953ad2c453c6c7c55393aaa96d6c56953e9555553c6c2eac5555552bc3a9555569556969515553ac786c55553a93945456953ac53c5391556aea879539696ed3c53ac6d3b83aababa83ab93a93aab91",
+  "cost": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "results": {
+   "bfs": {
+    "key": "bfs",
+    "found": true,
+    "cost": 62,
+    "path_len": 63,
+    "expanded": 311,
+    "max_frontier": 10
+   },
+   "dfs": {
+    "key": "dfs",
+    "found": true,
+    "cost": 80,
+    "path_len": 81,
+    "expanded": 166,
+    "max_frontier": 16
+   },
+   "ucs": {
+    "key": "ucs",
+    "found": true,
+    "cost": 62,
+    "path_len": 63,
+    "expanded": 311,
+    "max_frontier": 10
+   },
+   "greedy": {
+    "key": "greedy",
+    "found": true,
+    "cost": 62,
+    "path_len": 63,
+    "expanded": 98,
+    "max_frontier": 10
+   },
+   "astar": {
+    "key": "astar",
+    "found": true,
+    "cost": 62,
+    "path_len": 63,
+    "expanded": 222,
+    "max_frontier": 10
+   },
+   "wall": {
+    "key": "wall",
+    "found": true,
+    "cost": 280,
+    "path_len": 281,
+    "expanded": 281,
+    "max_frontier": 1
+   }
+  }
+ },
+ {
+  "w": 30,
+  "h": 30,
+  "seed": 2018,
+  "lacos": 0.5,
+  "lama": 0.2,
+  "cells": "6aaaaaaaaaaec6c6aeaaac2ac6eaec7c6aaaac6ec5555383aac56ad556953d3c6c4553b9553aaaaa957c1793c52969539556c6956eac6ac513a96c556a96d6ab9553c553ed5693c6c6939154693baea9543d3a9397eab953aaac557a86c3c6956d6aaac53aec3c6ea95396a93a952bb9546a93c69385556c7c696aaac56ac693d6c2d7ac695155553c52e85396956c393c396952fa9555695696d2ad6d156ac3ac7c3c3aed793c57c516c395693c3ac555696a957c695557a93ac556ed6e93d3d2bc29553a97b96ea8555553956c3c7ac7ac57c6c56a93ac3b953c6d57c556916d5539793e86abaac169555539792e95796c56a9692aec3c543d3bac3aa9697c53d56c3aac556957a96ac3ac46bc3d3a9393aac553bc53ac56b86955696d6c6aaaaa9556c396c5556c3c793c51553c46aaa9553ae93b9557c53ac55693c3d7c2aa956c3c6c295539685557ac3c553c6ac553c393c697aa969579696b93c39439783ea8396bc6a9697c3c3aec7c2faa96c3aec6bc796c7c57c3ac5393e96aa93c6953ad3ad3955556c396ac56baaeab96d6a96c386d55397ec7ab97aac56ac3d56a93c6957fac539546c3ac513c3c3b96e855453ba93aa9393aa93aab83aaa93ab939",
+  "cost": "111111111111111111111111111111111111111111111111111115111111111111111111151111111155511111111511111111555111111115111111115551111115555511111111111111155555111155555551111111111111555555511115555511111111111111155555111111555111111111111111115551111115551111111111111111111511111155555111111111111115111111111555555511111111111155111111111155555111111111111115111111111115551111111151111111111111111111551111111555111111111111111111555111111151111111111111111115555511111111111111111111111155555551111111111111111111111115555511111111111111111111111111555111111111111111111111111111151111111111111111111111111111111111111111151111111111115115111111111111555111111111155555511111111115555511111511555555551111111111555111115555555555511111111111151111155555555555111111111111111111115555555511111111111111111111111555555551111111111111111111111115555511111111111111111111111111555111111111111111111111",
+  "results": {
+   "bfs": {
+    "key": "bfs",
+    "found": true,
+    "cost": 128,
+    "path_len": 97,
+    "expanded": 664,
+    "max_frontier": 16
+   },
+   "dfs": {
+    "key": "dfs",
+    "found": true,
+    "cost": 132,
+    "path_len": 101,
+    "expanded": 178,
+    "max_frontier": 20
+   },
+   "ucs": {
+    "key": "ucs",
+    "found": true,
+    "cost": 128,
+    "path_len": 97,
+    "expanded": 568,
+    "max_frontier": 17
+   },
+   "greedy": {
+    "key": "greedy",
+    "found": true,
+    "cost": 132,
+    "path_len": 101,
+    "expanded": 109,
+    "max_frontier": 12
+   },
+   "astar": {
+    "key": "astar",
+    "found": true,
+    "cost": 128,
+    "path_len": 97,
+    "expanded": 410,
+    "max_frontier": 19
+   },
+   "wall": {
+    "key": "wall",
+    "found": true,
+    "cost": 298,
+    "path_len": 195,
+    "expanded": 195,
+    "max_frontier": 1
+   }
+  }
+ },
+ {
+  "w": 7,
+  "h": 41,
+  "seed": 99,
+  "lacos": 1.0,
+  "lama": 0.35,
+  "cells": "6aeaaac56bc6a957a97ac796c3ed5693a953d6c6e96d5393c553c6e957c553c55393ad53c6c6d7c393d53beaa956a96c6d7ea939553c6ec53c7953d6d3e96953a96bc7eac3ed57c3a95553aaa953aeaec3ac3af96e96c3c55693c57956c3d3c7956d6d56955553bc55796a95556d6a9555556ad39795696ad693c56d7aed555569579795697a9697c56c569539393a9",
+  "cost": "15555551555555115555511555511115511111555511555555555555555555555555555511555511111511111111111111111111111111111511111555111155551115555511155511111511111111111111111111111111111111111111111111111111115111115551115555515555555155555111555111555111115511111151111111111111111111111111111",
+  "results": {
+   "bfs": {
+    "key": "bfs",
+    "found": true,
+    "cost": 150,
+    "path_len": 59,
+    "expanded": 276,
+    "max_frontier": 10
+   },
+   "dfs": {
+    "key": "dfs",
+    "found": true,
+    "cost": 296,
+    "path_len": 109,
+    "expanded": 228,
+    "max_frontier": 23
+   },
+   "ucs": {
+    "key": "ucs",
+    "found": true,
+    "cost": 142,
+    "path_len": 91,
+    "expanded": 285,
+    "max_frontier": 11
+   },
+   "greedy": {
+    "key": "greedy",
+    "found": true,
+    "cost": 220,
+    "path_len": 73,
+    "expanded": 83,
+    "max_frontier": 20
+   },
+   "astar": {
+    "key": "astar",
+    "found": true,
+    "cost": 142,
+    "path_len": 91,
+    "expanded": 284,
+    "max_frontier": 14
+   },
+   "wall": {
+    "key": "wall",
+    "found": true,
+    "cost": 172,
+    "path_len": 85,
+    "expanded": 85,
+    "max_frontier": 1
+   }
+  }
+ }
+]

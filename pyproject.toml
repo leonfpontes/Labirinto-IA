@@ -1,0 +1,20 @@
+[project]
+name = "labirinto-ia"
+version = "2.0.0"
+description = "Buscas cegas e heurísticas em labirintos, com arena interativa e agente que aprende"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+dependencies = ["numpy>=1.24", "Pillow>=10.1"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+labirinto = "labirinto.cli:main"
+
+[tool.setuptools]
+packages = ["labirinto"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

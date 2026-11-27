@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Labirinto IA · Arena</title>
+<meta name="description" content="Seis estratégias de busca correndo lado a lado no mesmo labirinto, e um agente que aprende a sair sozinho.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="band top">
+  <div class="wrap head">
+    <div>
+      <h1>Labirinto IA</h1>
+      <p class="lead">Seis maneiras de sair do mesmo labirinto, correndo lado a lado. O azul é tudo o que cada busca precisou olhar; o fio vermelho é o caminho que ela encontrou.</p>
+    </div>
+    <svg class="thread-mark" viewBox="0 0 120 120" aria-hidden="true">
+      <path d="M8 8h104v104H8z M8 32h80 M32 32v56 M32 88h56 M88 56v56 M56 56h32" fill="none" stroke="currentColor" stroke-width="3"/>
+      <path d="M20 0v20h48v24H44v44h32V68h24v52" fill="none" stroke="var(--thread)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+</header>
+
+<section class="band controls" aria-label="Controles da corrida">
+  <div class="wrap">
+    <div class="row transport">
+      <button id="play" class="primary" type="button" aria-keyshortcuts="Space">Pausar</button>
+      <button id="step" type="button" title="Avançar um estado (seta direita)">Passo</button>
+      <button id="restart" type="button" title="Voltar ao início (Home)">Recomeçar</button>
+      <label class="timeline">
+        <span class="sr">Linha do tempo</span>
+        <input id="timeline" type="range" min="0" max="100" value="0">
+      </label>
+      <span id="tick" class="tick">0 / 0</span>
+      <label class="inline">Velocidade
+        <select id="speed">
+          <option value="0.25">0,25×</option>
+          <option value="0.5">0,5×</option>
+          <option value="1" selected>1×</option>
+          <option value="2">2×</option>
+          <option value="4">4×</option>
+        </select>
+      </label>
+    </div>
+    <div class="row settings">
+      <label>Labirinto
+        <select id="source">
+          <option value="gerado" selected>Gerar um novo</option>
+          <option value="original-20">Original de 2018 · 20×20</option>
+          <option value="original-100">Original de 2018 · 100×100</option>
+          <option value="original-200">Original de 2018 · 200×200</option>
+        </select>
+      </label>
+      <label class="gen">Gerador
+        <select id="method">
+          <option value="backtracker">Backtracking (corredores longos)</option>
+          <option value="prim">Prim (muitos galhos curtos)</option>
+          <option value="kruskal">Kruskal (uniforme)</option>
+        </select>
+      </label>
+      <label class="gen">Tamanho <output id="sizeOut">36</output>
+        <input id="size" type="range" min="8" max="90" value="36">
+      </label>
+      <label>Laços <output id="loopsOut">30%</output>
+        <input id="loops" type="range" min="0" max="100" value="30">
+      </label>
+      <label>Lama <output id="mudOut">12%</output>
+        <input id="mud" type="range" min="0" max="40" value="12">
+      </label>
+      <label class="seed">Semente
+        <input id="seed" type="number" min="1" max="999999" value="2018" inputmode="numeric">
+      </label>
+      <button id="shuffle" type="button">Sortear labirinto</button>
+    </div>
+    <div class="row brush" role="radiogroup" aria-label="O que o clique faz no labirinto">
+      <span>Clique no labirinto para</span>
+      <label class="chip"><input type="radio" name="brush" value="goal" checked> mover a saída</label>
+      <label class="chip"><input type="radio" name="brush" value="start"> mover a entrada</label>
+      <label class="chip"><input type="radio" name="brush" value="mud"> pintar lama</label>
+      <span class="legend"><i class="sw explored"></i>explorado <i class="sw frontier"></i>fronteira <i class="sw mud"></i>lama (custo 5) <i class="sw thread"></i>caminho <i class="sw start"></i>entrada <i class="sw goal"></i>saída</span>
+    </div>
+  </div>
+</section>
+
+<main class="band arena-band">
+  <div class="wrap">
+    <div id="arena" class="arena"></div>
+  </div>
+</main>
+
+<section class="band score-band" aria-labelledby="scoreTitle">
+  <div class="wrap">
+    <h2 id="scoreTitle">Placar</h2>
+    <p id="verdict" class="verdict"></p>
+    <div class="score-grid">
+      <div>
+        <h3>Estados expandidos <small>(menos é melhor)</small></h3>
+        <div id="barsExpanded" class="bars"></div>
+      </div>
+      <div>
+        <h3>Custo do caminho <small>(o traço marca o menor possível)</small></h3>
+        <div id="barsCost" class="bars"></div>
+      </div>
+    </div>
+    <div class="scroll">
+      <table class="facts">
+        <thead><tr><th>Estratégia</th><th>Como escolhe o próximo passo</th><th>Sempre acha a saída?</th><th>Acha o menor custo?</th></tr></thead>
+        <tbody>
+          <tr><td>Busca em largura</td><td>Fila: explora em ondas, do mais perto ao mais longe em número de passos.</td><td>Sim</td><td>Só se tudo custa igual</td></tr>
+          <tr><td>Busca em profundidade</td><td>Pilha: segue um corredor até o fim e só então volta.</td><td>Sim, em grade finita</td><td>Não</td></tr>
+          <tr><td>Custo uniforme</td><td>Sempre o ponto mais barato de alcançar até agora (Dijkstra).</td><td>Sim</td><td>Sim</td></tr>
+          <tr><td>Gulosa</td><td>Sempre o ponto que parece mais perto da saída, pela distância em linha reta na grade.</td><td>Sim, em grade finita</td><td>Não</td></tr>
+          <tr><td>A*</td><td>Custo já pago mais a estimativa do que falta. A estimativa nunca exagera, então o resultado é ótimo.</td><td>Sim</td><td>Sim</td></tr>
+          <tr><td>Mão na parede</td><td>Não guarda mapa: anda com a mão direita encostada na parede.</td><td>Sim, com entrada e saída na borda</td><td>Não</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="band rl-band" aria-labelledby="rlTitle">
+  <div class="wrap rl">
+    <div class="rl-text">
+      <h2 id="rlTitle">Um agente que aprende sozinho</h2>
+      <p>As buscas acima recebem o mapa inteiro. Este agente não: ele começa perdido e aprende por tentativa e erro (Q-learning). Cada passo custa pontos, a lama custa mais, e chegar à saída rende 100. Quanto mais azul a célula, mais o agente acredita que vale a pena estar ali.</p>
+      <div class="row">
+        <button id="rlPlay" class="primary" type="button">Treinar</button>
+        <button id="rlReset" type="button">Esquecer tudo</button>
+        <button id="rlNew" type="button">Outro labirinto</button>
+        <label class="inline">Ritmo
+          <select id="rlSpeed">
+            <option value="1" selected>1 tentativa por quadro</option>
+            <option value="5">5 por quadro</option>
+            <option value="25">25 por quadro</option>
+          </select>
+        </label>
+      </div>
+      <dl class="rl-stats">
+        <div><dt>Tentativas</dt><dd id="rlEp">0</dd></div>
+        <div><dt>Curiosidade (ε)</dt><dd id="rlEps">100%</dd></div>
+        <div><dt>Passos na última</dt><dd id="rlSteps">–</dd></div>
+        <div><dt>Rota aprendida</dt><dd id="rlPolicy">ainda não chega</dd></div>
+      </dl>
+      <figure class="curve">
+        <figcaption>Passos por tentativa</figcaption>
+        <div class="fig small"><svg id="rlCurve" role="img" aria-label="Passos por tentativa ao longo do treino"></svg></div>
+      </figure>
+    </div>
+    <div class="rl-board"><canvas id="rlCanvas" aria-label="Mapa de valores aprendido pelo agente"></canvas></div>
+  </div>
+</section>
+
+<footer class="band foot">
+  <div class="wrap">
+    <p>Projeto de Inteligência Artificial criado em 2018 por Charles Henrique, Douglas Calora, Elias Assunção, Guilherme Haynes, Leonardo Pontes e Lúcio Sam, e revitalizado em 2026. O mesmo núcleo roda em Python (<code>python -m labirinto resolver</code>) e gera o mesmo labirinto a partir da mesma semente.</p>
+    <p class="keys">Atalhos: espaço pausa, setas avançam ou voltam, R sorteia um labirinto novo.</p>
+  </div>
+</footer>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
