@@ -99,3 +99,7 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# Saídas geradas pela linha de comando
+resolv/
+node_modules/
